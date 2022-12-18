@@ -1,0 +1,121 @@
+﻿@using BuildingManagement.Entities.Models
+@model IEnumerable<User>
+
+@{
+    ViewBag.Title = "Users";
+}
+
+<nav class="navbar navbar-inverse " style="margin-top: 20px; border-radius: 15px; background-color: #232c40;">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li><a href="~/Dueses/index"><span class="glyphicon glyphicon-home"></span> Dueses</a></li>
+                <li><a href="~/Apartments/index">Apartments</a></li>
+                <li><a href="~/Messages/index">Messages</a></li>
+                <li><a href="~/Roles/index">Roles</a></li>
+                <li><a href="~/Users/index">Users</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/Authorize/Logout" onclick="alert('The Session Is Closed.')"><span class="glyphicon glyphicon-log-out"></span></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<h2>Users</h2>
+@if (@ViewBag.Role == "Admin")
+{
+    <p>
+        @Html.ActionLink("Create New", "Create",null,null, new { @class = "btn btn-primary" })
+    </p>
+    @if (!string.IsNullOrEmpty(ViewBag.Password))
+    {
+        <p>
+            Parola : @ViewBag.Password
+        </p>
+    }
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Role.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdentityNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CarInfo)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdentityNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Mail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CarInfo)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id=item.Id }, new { @class = "btn btn-warning" }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.Id }, new { @class = "btn btn-info" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure?')" })
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+else
+{
+    <p>
+        You are not authorized to access this page.
+    </p>
+}

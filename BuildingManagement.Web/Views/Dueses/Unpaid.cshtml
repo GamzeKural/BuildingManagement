@@ -1,0 +1,117 @@
+﻿@using BuildingManagement.Entities.Models
+@model IEnumerable<Dues>
+@{
+    ViewBag.Title = "Dueses";
+}
+
+<nav class="navbar navbar-inverse " style="margin-top: 20px; border-radius: 15px; background-color: #232c40;">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li><a href="~/Dueses/index"><span class="glyphicon glyphicon-home"></span> Dueses</a></li>
+                <li><a href="~/Apartments/index">Apartments</a></li>
+                <li><a href="~/Messages/index">Messages</a></li>
+                <li><a href="~/Roles/index">Roles</a></li>
+                <li><a href="~/Users/index">Users</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/Authorize/Logout" onclick="alert('The Session Is Closed.')"><span class="glyphicon glyphicon-log-out"></span></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<h2>Dueses</h2>
+
+@if (@ViewBag.Role == "Admin" || @ViewBag.Role == "Tenant" || @ViewBag.Role == "Owner")
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Apartment.User.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Apartment.Block)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Apartment.Number)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastPaymentDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsPaid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaidDate)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apartment.User.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apartment.Block)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apartment.Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastPaymentDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsPaid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaidDate)
+                </td>
+                <td>
+                    @if (@ViewBag.Role == "Admin")
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id=item.Id } , new { @class = "btn btn-warning" })
+                        @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure?')" })
+                    }
+                    &nbsp
+                    @Html.ActionLink("Details", "Details", new { id=item.Id }, new { @class = "btn btn-info" }) |
+                    @Html.ActionLink("Pay", "Pay", new { id=item.Id } , new { @class = "btn btn-primary", onclick = "return confirm('Are You Confirm?')"  })
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>
+        You are not authorized to access this page.
+    </p>
+}
+

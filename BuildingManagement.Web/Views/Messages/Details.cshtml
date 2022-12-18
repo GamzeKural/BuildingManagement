@@ -1,0 +1,95 @@
+﻿@using BuildingManagement.Entities.Models
+@model Message
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<nav class="navbar navbar-inverse " style="margin-top: 20px; border-radius: 15px; background-color: #232c40;">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li><a href="~/Dueses/index"><span class="glyphicon glyphicon-home"></span> Dueses</a></li>
+                <li><a href="~/Apartments/index">Apartments</a></li>
+                <li><a href="~/Messages/index">Messages</a></li>
+                <li><a href="~/Roles/index">Roles</a></li>
+                <li><a href="~/Users/index">Users</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/Authorize/Logout" onclick="alert('The Session Is Closed.')"><span class="glyphicon glyphicon-log-out"></span></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<h2>Details</h2>
+@if (@ViewBag.Role == "Admin" || @ViewBag.Role == "Tenant" || @ViewBag.Role == "Owner")
+{
+    <div>
+        <h4>Message</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.SenderId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SenderId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ReceiverId)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ReceiverId)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.MessageBody)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.MessageBody)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.IsRead)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IsRead)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.SendDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.SendDate)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @if (@ViewBag.Role == "Admin")
+        {
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
+        }
+        &nbsp
+        @Html.ActionLink("Back to List", "Index",null, null, new { @class = "btn btn-primary" })
+    </p>
+}
+else
+{
+    <p>
+        You are not authorized to access this page.
+    </p>
+}
